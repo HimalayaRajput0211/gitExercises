@@ -1,0 +1,383 @@
+
+1 -> command: git init 
+     result : Initialized empty Git repository in /Users/himalayarajput/Desktop/gitExercise/ColorsCodes/.git/
+2 -> command: git add f1
+     Command: git status
+     result:  On branch master
+              No commits yet
+
+             Changes to be committed:
+               (use "git rm --cached <file>..." to unstage)
+             new file:   f1
+
+3 -> command: git commit -m "added file f1"
+     Result: [master (root-commit) 4fd7b47] added file f1
+               1 file changed, 8 insertions(+)
+               create mode 100644 f1
+
+4 -> command: git add f2
+              git commit -m "added file f2"
+     result:	[master 8253d17] added file f2
+ 		1 file changed, 8 insertions(+)
+		 create mode 100644 f2
+
+     Command: git add f3 
+              git commit -m "added file f3"
+     Result: [master 4f81c78] added file f3
+ 	      1 file changed, 8 insertions(+)
+	      create mode 100644 f3
+    
+     Command: git rm f3
+     Result: rm 'f3'
+     Command:  git status
+     Result: On branch master
+	     Changes to be committed:
+ 	    (use "git reset HEAD <file>..." to unstage)
+		deleted:    f3
+      
+     Command: git commit -m "removed file f3"
+     Result: [master 78cdaee] removed file f3
+ 	      1 file changed, 8 deletions(-)
+	      delete mode 100644 f3
+    Commands: touch myapp.pyc
+	      mkdir logs
+	      touch logs/log1.log
+	      touch logs/log2.log
+   	      git status
+    Result: On branch master
+	    Untracked files:
+	   (use "git add <file>..." to include in what will be committed)
+		    logs/
+	            myapp.pyc
+	  nothing added to commit but untracked files present (use "git add" to track)
+   
+     Command: vi .gitignore
+              git status
+     Result:  On branch master
+		Untracked files:
+		  (use "git add <file>..." to include in what will be committed)
+
+		.gitignore
+
+		nothing added to commit but untracked files present (use "git add" to track)
+    Command: git add .
+             git commit -m "added .gitignore file"
+    Result: [master e95b7c5] added .gitignore file
+ 		1 file changed, 2 insertions(+)
+ 		create mode 100644 .gitignore
+
+5 -> command: git diff
+      Result: diff --git a/f1 b/f1
+		index 177b650..af8f196 100644
+		--- a/f1
+		+++ b/f1
+		@@ -6,3 +6,5 @@ colors:
+		      id: 20
+		    green:
+		      id: 30
+		+  InvalidColor:
+		+     Id: 0
+
+     Command:  git checkout -- f1
+  	       git status
+     Result: On branch master
+		nothing to commit, working tree clean
+
+6 -> command: git add f1  
+ 	      git diff --staged 
+
+     Result: diff --git a/f1 b/f1
+		index 177b650..e28b61b 100644
+		--- a/f1
+		+++ b/f1
+		@@ -5,4 +5,4 @@ colors:
+		    blue: 
+		      id: 20
+		    green:
+		-     id: 30
+		+     id: 40
+     
+     Command: git reset HEAD -- f1
+     Result: Unstaged changes after reset:
+	     M	    f1
+
+
+7 -> command: git checkout 4f81c -- f3
+              git status
+     Result:On branch master
+		Changes to be committed:
+ 		 (use "git reset HEAD <file>..." to unstage)
+
+		new file:   f3
+
+    Command: git commit -m "restored file f3"
+    Result: [master dce53af] restored file f3
+	    1 file changed, 8 insertions(+)
+	    create mode 100644 f3
+
+
+9 -> command: git log --all --decorate --oneline --graph
+     Result:    * dce53af (HEAD -> master) restored file f3
+		* e95b7c5 added .gitignore file
+		* 78cdaee removed file f3
+		* 4f81c78 added file f3
+		* 8253d17 added file f2
+		* 4fd7b47 added file f1
+
+10 -> command: git show 4f81c78
+      Result: commit 4f81c78500fed84c8879a8a4ff2c109677f9dc85
+		Author: HimalayaRajput0211 <himalaya@vinsol.com>
+		Date:   Sat Apr 11 15:43:39 2020 +0530
+
+		    added file f3
+
+		diff --git a/f3 b/f3
+		new file mode 100644
+		index 0000000..177b650
+		--- /dev/null
+		+++ b/f3
+		@@ -0,0 +1,8 @@
+		+ipAddress: 20.10.0.1
+		+colors:
+		+   red: 
+		+     id: 10
+		+   blue: 
+		+     id: 20
+		+   green:
+		+     id: 30
+
+
+11 -> command:  git branch feature1 
+		git branch feature2
+		alias graph="git log --all --decorate --oneline --graph"
+		graph
+      Result:   * dce53af (HEAD -> master, feature2, feature1) restored file f3
+		* e95b7c5 added .gitignore file
+		* 78cdaee removed file f3
+		* 4f81c78 added file f3
+		* 8253d17 added file f2
+		* 4fd7b47 added file f1
+
+     Command: git branch -d feature2
+     Result: Deleted branch feature2 (was dce53af).
+
+
+12 -> command: git checkout feature1
+      Result: Switched to branch 'feature1'
+      Command:  git status
+      Result: On branch feature1
+		Changes not staged for commit:
+ 		 (use "git add <file>..." to update what will be committed)
+		  (use "git checkout -- <file>..." to discard changes in working directory)
+
+			modified:   f1
+
+		no changes added to commit (use "git add" and/or "git commit -a")
+     Command: git commit -a -m "f1 in feature1"
+     Result:  [feature1 64e0d96] f1 in feature1
+	      1 file changed, 2 insertions(+), 2 deletions(-)
+
+13 -> command: git checkout master
+      Result: Switched to branch 'master'
+      Command: git status
+      Result: On branch master
+		Changes not staged for commit:
+		  (use "git add <file>..." to update what will be committed)
+		  (use "git checkout -- <file>..." to discard changes in working directory)
+
+			modified:   f1
+
+		no changes added to commit (use "git add" and/or "git commit -a")
+    
+     Command: git commit -a -m "edited f1"  
+     Result:  [master 3be1532] edited f1
+               1 file changed, 2 insertions(+), 2 deletions(-)
+
+14 -> command: git merge feature1
+      Result:  Auto-merging f1
+		CONFLICT (content): Merge conflict in f1
+		Automatic merge failed; fix conflicts and then commit the result.
+
+      Command: git status
+      Result:  On branch master
+		You have unmerged paths.
+		 (fix conflicts and run "git commit")
+		  (use "git merge --abort" to abort the merge)
+
+		Unmerged paths:
+	      (use "git add <file>..." to mark resolution)
+
+		both modified:   f1
+
+		no changes added to commit (use "git add" and/or "git commit -a")
+     
+     Command : vi f1
+     Result: 
+		<<<<<<< HEAD
+		ipAddress: 20.10.0.1i
+		colors:
+		   yellow:
+		=======
+		ipAddress: 20.10.0.2
+		colors:
+		   pink:
+		>>>>>>> feature1
+		     id: 10
+		   blue:
+		     id: 20
+		   green:
+		     id: 30
+
+
+    After resolving conflicts: 
+   	ipAddress: 20.10.0.2
+	colors:
+	  pink:
+	     id: 10
+	   blue:
+	     id: 20
+	   green:
+ 	    id: 30 
+     
+     
+     Command: git add f1
+     	      git status
+
+     Result: On branch master
+		All conflicts fixed but you are still merging.
+ 		 (use "git commit" to conclude merge)
+
+		Changes to be committed:
+
+		modified:   f1
+
+     Command: git commit
+     Result: [master 1705354] Merge branch 'feature1'
+
+     Command: graph
+     Result:    *   1705354 (HEAD -> master) Merge branch 'feature1'
+		|\  
+		| * 64e0d96 (feature1) f1 in feature1
+		* | 3be1532 edited f1
+		|/  
+		* dce53af restored file f3
+		* e95b7c5 added .gitignore file
+		* 78cdaee removed file f3
+		* 4f81c78 added file f3
+		* 8253d17 added file f2
+		* 4fd7b47 added file f1
+  
+     Command: git branch -d feature1
+     Result:  Deleted branch feature1 (was 64e0d96).
+
+15 -> command: git branch feature2 
+      command: git checkout feature2
+      Result: Switched to branch 'feature2'
+      Command: git commit -a -m "f1 in feature2"
+      Result: [feature2 8882cd0] f1 in feature2
+	      1 file changed, 1 insertion(+), 1 deletion(-)
+      Command: graph
+      Result:   * 8882cd0 (HEAD -> feature2) f1 in feature2
+		*   1705354 (master) Merge branch 'feature1'
+		|\  
+		| * 64e0d96 f1 in feature1
+		* | 3be1532 edited f1
+		|/  
+		* dce53af restored file f3
+		* e95b7c5 added .gitignore file
+		* 78cdaee removed file f3
+		* 4f81c78 added file f3
+		* 8253d17 added file f2
+		* 4fd7b47 added file f1
+
+16 ->  command: git checkout master
+       Result: Switched to branch 'master'
+       Command:  git commit -a -m "edited f1"
+       Result: [master a26d8e6] edited f1
+		 1 file changed, 1 insertion(+), 1 deletion(-)
+       Command: graph
+       Result:  * a26d8e6 (HEAD -> master) edited f1
+		| * 8882cd0 (feature2) f1 in feature2
+		|/  
+		*   1705354 Merge branch 'feature1'
+		|\  
+		| * 64e0d96 f1 in feature1
+		* | 3be1532 edited f1
+		|/  
+		* dce53af restored file f3
+		* e95b7c5 added .gitignore file
+		* 78cdaee removed file f3
+		* 4f81c78 added file f3
+		* 8253d17 added file f2
+		* 4fd7b47 added file f1
+
+17 ->  command: git checkout feature2
+       Result: Switched to branch 'feature2'
+       Command: git rebase master
+       Result: First, rewinding head to replay your work on top of it...
+		Applying: f1 in feature2
+		Using index info to reconstruct a base tree...
+		M	f1
+		.git/rebase-apply/patch:10: trailing whitespace.
+		   yellow: 
+		warning: 1 line adds whitespace errors.
+		Falling back to patching base and 3-way merge...
+		Auto-merging f1
+		CONFLICT (content): Merge conflict in f1
+		error: Failed to merge in the changes.
+		Patch failed at 0001 f1 in feature2
+		hint: Use 'git am --show-current-patch' to see the failed patch
+		Resolve all conflicts manually, mark them as resolved with
+		"git add/rm <conflicted_files>", then run "git rebase --continue".
+		You can instead skip this commit: run "git rebase --skip".
+		To abort and get back to the state before "git rebase", run "git rebase --abort".
+
+       Command: git add f1
+                git status
+       Result: rebase in progress; onto a26d8e6
+		You are currently rebasing branch 'feature2' on 'a26d8e6'.
+		  (all conflicts fixed: run "git rebase --continue")
+
+		Changes to be committed:
+		  (use "git reset HEAD <file>..." to unstage)
+
+	  		modified:   f1
+       Command: git rebase --continue 
+       Result: Applying: f1 in feature2
+       
+       Command: graph
+       Result : * c13a64c (HEAD -> feature2) f1 in feature2
+		* a26d8e6 (master) edited f1
+		*   1705354 Merge branch 'feature1'
+		|\  
+		| * 64e0d96 f1 in feature1
+		* | 3be1532 edited f1
+		|/  
+		* dce53af restored file f3
+		* e95b7c5 added .gitignore file
+		* 78cdaee removed file f3
+		* 4f81c78 added file f3
+		* 8253d17 added file f2
+		* 4fd7b47 added file f1
+
+18 ->  merge adds one new commit 
+       Rebase doesn't create a new commit and rewrites the commit history
+
+19 ->  command: vi f1
+                git checkout feature2
+       Result: error: Your local changes to the following files would be overwritten by checkout:
+			f1
+		Please commit your changes or stash them before you switch branches.
+		Aborting
+
+       Command: git stash
+       Result:  Saved working directory and index state WIP on master: a26d8e6 edited f1
+
+       Command: git status
+       Result:  On branch master
+		nothing to commit, working tree clean
+
+
+20 -> git remote add origin https://github.com/HimalayaRajput0211/gitExercises.git 
+      git push -u origin master
+
