@@ -2,7 +2,7 @@ ipAddress: 20.10.0.2
 colors:
   pink:
      id: 10
-   blue: 
+  red: 
      id: 20
    green:
      id: 30
