@@ -1,6 +1,6 @@
-ipAddress: 20.10.0.1i
+ipAddress: 20.10.0.2
 colors:
-   yellow: 
+  pink:
      id: 10
    blue: 
      id: 20
